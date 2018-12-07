@@ -1,0 +1,50 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="well">
+			<h1>Look up your local forcast</h1>
+			<p><i>Whats the weather link in your city?</i></p>
+			<div>
+				<%= form_tag index_path do %>
+					<%= text_field_tag :zipcode, nil, placeholder: "zipcode", class:"form-control"%><br>
+					<%= submit_tag "Check Weather", class: "btn btn-primary" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="well">
+		<% if @location != nil && @location != "" && (@error == "" || @error == nil)%>
+			<h1>Forcast for <%= @location %></h1>
+			<div class="row">
+				<div class="col-md-7">
+					<p>
+						<em>Whats the Weather like?</em>
+					</p>
+					<p>
+						Temp is: <%= @temp %>&#176; F
+					</p>
+					<p>
+						Cloud Cover: <%= @cloudiness %>%
+					</p>
+					<p>
+						Wind: <%= @windiness %>mph
+					</p>
+				</div>
+				<div class="col-md-5">
+					<p>
+						<%= @weather_words %>
+						<img src="http://openweathermap.org/img/w/<%= @weather_icon %>.png">
+					</p>
+				</div>
+			</div>
+			<% elsif @status == "404" %>
+				<p>Error:<%= @error %>. Please Try Again.</p>
+			<% else %>
+				<center><p>Enter a Zip code to check the weather!</p></center>
+			<% end %>
+		</div>
+	</div>
+</div>
